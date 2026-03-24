@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Art Collection Inventory</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; background-color: #f4f4f4; }
+        .art-card { border: 2px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Artwork Inventory</h1>
+    <div id="container">Fetching artworks...</div>
+
+    <script>
+        // Retrieve the list of artworks from the server
+        fetch('/api/artworks')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('container');
+                container.innerHTML = ''; // Remove loading message
+
+                data.forEach(item => {
+                    container.innerHTML += `
+                        <div class="art-card">
+                            <h3>${item.title}</h3>
+                            <p>Value: ${item.value} USD</p>
+                            <p>Medium: ${item.medium}</p>
+                        </div>
+                    `;
+                });
+            });
+    </script>
+</body>
+</html>
